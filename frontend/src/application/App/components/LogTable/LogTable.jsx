@@ -3,6 +3,8 @@ import { useCallback, useMemo, memo } from 'react';
 import { Table, Visibility } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
+import StyledLogTable from './LogTable.style';
+
 const LogTable = ({ data = [], end = false, loading = false, setPage }) => {
   const handleIncrementPage = useCallback(
     () => {
@@ -46,28 +48,30 @@ const LogTable = ({ data = [], end = false, loading = false, setPage }) => {
   }, [data, end, loading]);
 
   return (
-    <Visibility
-      as={Table}
-      once={false}
-      onBottomVisible={handleIncrementPage}
-      celled
-    >
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Date</Table.HeaderCell>
-          <Table.HeaderCell>Status</Table.HeaderCell>
-          <Table.HeaderCell>Text</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      {dataRows}
-      <Table.Footer fullWidth>
-        <Table.Row>
-          <Table.HeaderCell colSpan='3'>
-            {footer}
-          </Table.HeaderCell>
-        </Table.Row>
-      </Table.Footer>
-    </Visibility>
+    <StyledLogTable>
+      <Visibility
+        as={Table}
+        once={false}
+        onBottomVisible={handleIncrementPage}
+        celled
+      >
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Date</Table.HeaderCell>
+            <Table.HeaderCell>Status</Table.HeaderCell>
+            <Table.HeaderCell>Text</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        {dataRows}
+        <Table.Footer fullWidth>
+          <Table.Row>
+            <Table.HeaderCell colSpan='3'>
+              {footer}
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Footer>
+      </Visibility>
+    </StyledLogTable>
   );
 };
 
