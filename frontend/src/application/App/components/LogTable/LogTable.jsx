@@ -3,9 +3,19 @@ import { useCallback, useMemo, memo } from 'react';
 import { Table, Visibility } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
+import { fields } from '../../../../constants';
+import { TableHeaderCell } from './components';
 import StyledLogTable from './LogTable.style';
 
-const LogTable = ({ data = [], end = false, loading = false, setPage }) => {
+const LogTable = ({
+  data = [],
+  end = false,
+  loading = false,
+  descending,
+  sort,
+  setSort,
+  setPage,
+}) => {
   const handleIncrementPage = useCallback(
     () => {
       if (!end) {
@@ -57,9 +67,30 @@ const LogTable = ({ data = [], end = false, loading = false, setPage }) => {
       >
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Date</Table.HeaderCell>
-            <Table.HeaderCell>Status</Table.HeaderCell>
-            <Table.HeaderCell>Text</Table.HeaderCell>
+            <TableHeaderCell
+              descending={descending}
+              sort={sort}
+              field={fields.DATE}
+              setSort={setSort}
+            >
+              Date
+            </TableHeaderCell>
+            <TableHeaderCell
+              descending={descending}
+              sort={sort}
+              field={fields.STATUS_LABEL}
+              setSort={setSort}
+            >
+              Status
+            </TableHeaderCell>
+            <TableHeaderCell
+              descending={descending}
+              sort={sort}
+              field={fields.TEXT}
+              setSort={setSort}
+            >
+              Text
+            </TableHeaderCell>
           </Table.Row>
         </Table.Header>
         {dataRows}
