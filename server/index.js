@@ -5,7 +5,7 @@ import { paginateData, sortData } from './utilities/index.js';
 import { data } from './data.js';
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.get('/api', (request, response) => {
   const { sort, page, size } = request.query;
@@ -27,9 +27,9 @@ app.get('/api', (request, response) => {
       end,
     },
   };
-  const stringPayload = JSON.stringify(payload);
 
-  response.send(stringPayload);
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  response.json(payload);
 })
 
 app.listen(port, () => {
