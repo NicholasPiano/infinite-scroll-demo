@@ -1,9 +1,17 @@
 
-import { useMemo, memo } from 'react';
-import { Table } from 'semantic-ui-react';
+import { useCallback, useMemo, memo } from 'react';
+import { Table, Visibility } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
-const LogTable = ({ data = [], end = false, loading = false }) => {
+const LogTable = ({ data = [], end = false, loading = false, setPage }) => {
+  const handleIncrementPage = useCallback(
+    () => {
+      if (!end) {
+        setPage(page => page + 1);
+      }
+    },
+    [setPage, end],
+  );
   const dataRows = useMemo(() => {
     if (!data) {
       return null;
@@ -35,10 +43,15 @@ const LogTable = ({ data = [], end = false, loading = false }) => {
     }
 
     return 'Scroll to load more data';
-  }, [end]);
+  }, [data, end, loading]);
 
   return (
-    <Table celled>
+    <Visibility
+      as={Table}
+      once={false}
+      onBottomVisible={handleIncrementPage}
+      celled
+    >
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Date</Table.HeaderCell>
@@ -54,7 +67,7 @@ const LogTable = ({ data = [], end = false, loading = false }) => {
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
-    </Table>
+    </Visibility>
   );
 };
 

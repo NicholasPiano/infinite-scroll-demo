@@ -6,7 +6,6 @@ import { Status } from './components';
 import StyledStatistics from './Statistics.style';
 
 const Statistics = ({ data = [] }) => {
-
   const { info, warning, error } = useMemo(() => {
     return data.reduce(
       (acc, { statusLabel }) => ({

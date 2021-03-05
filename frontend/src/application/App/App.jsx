@@ -18,7 +18,7 @@ const App = () => {
       <StyledHeader>
         <Statistics data={data} />
       </StyledHeader>
-      <LogTable data={data} end={end} loading={loading} />
+      <LogTable data={data} end={end} loading={loading} setPage={setPage} />
     </StyledApp>
   );
 };

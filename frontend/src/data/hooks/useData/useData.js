@@ -12,13 +12,19 @@ const useData = ({ sort, page, size }) => {
 
   useEffect(() => {
     if (!loading) {
-      setQueryIds(existingIds => [...existingIds, id]);
+      setQueryIds(existingIds => {
+        if (!existingIds.includes(id)) {
+          return [...existingIds, id];
+        }
+
+        return existingIds;
+      });
     }
   }, [id, loading, setQueryIds]);
 
-  // useEffect(() => {
-  //   setQueryIds([]);
-  // }, [sort, setQueryIds]);
+  useEffect(() => {
+    setQueryIds([]);
+  }, [sort, setQueryIds]);
 
   return {
     data,
